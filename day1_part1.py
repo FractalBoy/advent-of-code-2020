@@ -17,7 +17,7 @@ def main():
     print(reduce(mul, entries))
 
 def find_two_entries(numbers: List[int], sum: int):
-    """Find the two entries in the given list that add to the given number."""
+    """Find the two entries in the given list that sum to the given number."""
     for i in range(len(numbers)):
         for j in range(len(numbers)):
             if i == j:
