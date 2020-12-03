@@ -4,10 +4,11 @@ from functools import reduce
 from operator import mul
 from typing import List
 
-from aoc_input import read_input_into_int_list
+from aoc_input import read_input_into_ints
+
 
 def main():
-    numbers = read_input_into_int_list()
+    numbers = list(read_input_into_ints())
     entries = find_three_entries(numbers, 2020)
 
     if entries is None:
@@ -15,6 +16,7 @@ def main():
 
     print()
     print(reduce(mul, entries))
+
 
 def find_three_entries(numbers: List[int], sum: int):
     """Find the three entries in the given list that sum to the given number."""
@@ -33,5 +35,5 @@ def find_three_entries(numbers: List[int], sum: int):
     return None
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
