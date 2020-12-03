@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from typing import Iterable, Tuple, Dict, Union
+from typing import Iterator, Tuple, Dict, Union
 
 from aoc_input import read_input
 
@@ -22,7 +22,7 @@ def evaluate_password_with_policy(password, policy):
     )
 
 
-def get_passwords_and_policies() -> Iterable[
+def get_passwords_and_policies() -> Iterator[
     Tuple[str, Dict[str, Union[str, Dict[str, int]]]]
 ]:
     """Get all of the passwords and their associated policies from the input text."""
