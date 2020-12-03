@@ -17,6 +17,7 @@ def main():
 
 
 def evaluate_password_with_policy(password, policy):
+    """Evaluate the password against its policy."""
     count = len([letter for letter in password if letter == policy["letter"]])
 
     return count >= policy["range"]["start"] and count <= policy["range"]["end"]
@@ -25,6 +26,7 @@ def evaluate_password_with_policy(password, policy):
 def get_passwords_and_policies() -> Iterable[
     Tuple[str, Dict[str, Union[str, Dict[str, int]]]]
 ]:
+    """Get all of the passwords and their associated policies from the input text."""
     for line in read_input():
         parts = line.split()
 
