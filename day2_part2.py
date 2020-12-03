@@ -26,7 +26,7 @@ def get_passwords_and_policies() -> Iterator[
     Tuple[str, Dict[str, Union[str, Dict[str, int]]]]
 ]:
     """Get all of the passwords and their associated policies from the input text."""
-    for line in read_input():
+    for line in read_input(2020, 2):
         parts = line.split()
 
         [range_start, range_end] = parts[0].split("-")

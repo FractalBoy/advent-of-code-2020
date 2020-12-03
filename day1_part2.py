@@ -8,7 +8,7 @@ from aoc_input import read_input_into_ints
 
 
 def main():
-    numbers = list(read_input_into_ints())
+    numbers = list(read_input_into_ints(2020, 1))
     entries = find_three_entries(numbers, 2020)
 
     if entries is None:

@@ -46,7 +46,7 @@ def read_map_into_matrix():
     """Read input into a usable map matrix."""
     matrix = []
 
-    for line in read_input():
+    for line in read_input(2020, 3):
         matrix.append(list(line))
 
     return matrix

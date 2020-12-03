@@ -12,7 +12,7 @@ def main():
 def ski(right, down):
     """
     Ski down the slope provided by stdin, using the provided slope.
-    
+
     Returns the number of trees hit.
     """
     matrix = read_map_into_matrix()
@@ -38,7 +38,7 @@ def read_map_into_matrix():
     """Read input into a usable map matrix."""
     matrix = []
 
-    for line in read_input():
+    for line in read_input(2020, 3):
         matrix.append(cycle(line))
 
     return matrix
