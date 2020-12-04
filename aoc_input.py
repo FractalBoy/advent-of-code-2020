@@ -20,7 +20,11 @@ def read_input_into_floats(year: int, day: int) -> Iterator[float]:
     return (float(line) for line in read_input(year, day))
 
 
-def get_input_from_aoc(year: int, day: int) -> str:
+def read_full_text(year: int, day: int) -> str:
+    return get_input_from_aoc(year, day).read()
+
+
+def get_input_from_aoc(year: int, day: int) -> io.StringIO:
     session_id = dotenv.get_key(".env", "SESSION_ID")
     response = requests.get(
         f"https://adventofcode.com/{year}/day/{day}/input",
