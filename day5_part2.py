@@ -1,16 +1,31 @@
 #!/usr/bin/env python
 
-from typing import Iterator, List, Tuple
+from typing import Iterator, List, Tuple, Set
 
 from aoc_input import read_input
 
 
 def main():
-    print(max(find_seat_id(boarding_pass) for boarding_pass in get_boarding_passes()))
+    print(find_my_seat())
 
 
 def get_boarding_passes() -> Iterator[str]:
     return read_input(2020, 5)
+
+
+def find_my_seat() -> int:
+    missing_numbers = set(range(1023)).difference(get_seat_ids())
+
+    for missing_number in missing_numbers:
+        if (
+            missing_number + 1 not in missing_numbers
+            and missing_number - 1 not in missing_numbers
+        ):
+            return missing_number
+
+
+def get_seat_ids() -> Iterator[int]:
+    return set(find_seat_id(boarding_pass) for boarding_pass in get_boarding_passes())
 
 
 def find_seat_id(boarding_pass: str) -> int:
