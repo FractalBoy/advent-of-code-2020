@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import re
-from collections import defaultdict
 
 from aoc_input import read_input
 
