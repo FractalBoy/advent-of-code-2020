@@ -7,35 +7,29 @@ from aoc_input import read_input
 
 def main():
     rules = get_rules()
-    tree = build_bag_tree(rules, "shiny gold")
-    print(len(tree.keys()))
+    print(count_bags(rules, "shiny gold"))
 
 
-def build_bag_tree(rules, search_color):
-    def _build_bag_tree(rules, color):
+def count_bags(rules, search_color):
+    def _contains_bag(rules, color):
         if color == search_color:
             return True
 
-        tree = {}
-
         for key in rules[color].keys():
-            value = _build_bag_tree(rules, key)
-            if value:
-                tree[key] = value
+            if _contains_bag(rules, key):
+                return True
 
-        if not len(tree.keys()):
-            return False
+        return False
 
-        return tree
+    bags = 0
 
-    tree = {}
+    for key in rules.keys():
+        if key == search_color:
+            continue
+        if _contains_bag(rules, key):
+            bags += 1
 
-    for color in rules.keys():
-        tree[color] = _build_bag_tree(rules, color)
-
-    tree = {key: value for key, value in tree.items() if value}
-    del tree[search_color]
-    return tree
+    return bags
 
 
 def get_rules():
