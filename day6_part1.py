@@ -4,16 +4,13 @@ from aoc_input import read_full_text
 
 
 def main():
-    print(
-        sum(
-            len(get_unique_answers(group))
-            for group in get_passenger_groups()
-        )
-    )
+    print(sum(len(get_unique_answers(group)) for group in get_passenger_groups()))
 
 
 def get_unique_answers(passenger_group):
-    return set("".join(passenger_group))
+    passenger_group = (set(passenger) for passenger in passenger_group)
+    first_passenger = next(passenger_group)
+    return first_passenger.union(*passenger_group)
 
 
 def get_passenger_groups():
