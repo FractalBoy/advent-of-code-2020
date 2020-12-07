@@ -6,7 +6,7 @@ from aoc_input import read_full_text
 def main():
     print(
         sum(
-            sum(1 for answer in get_unique_answers(group))
+            len(get_unique_answers(group))
             for group in get_passenger_groups()
         )
     )
