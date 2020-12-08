@@ -7,6 +7,7 @@ def main():
     code = read_input(2020, 8)
     game_console = GameConsole.from_code(code)
     game_console.run()
+    print(game_console.acc)
 
 
 if __name__ == "__main__":

@@ -4,22 +4,24 @@ from typing import Iterator, List
 
 
 class GameConsole:
-    def __init__(self, instructions: List['Instruction']):
+    def __init__(self, instructions: List["Instruction"]):
         self.instructions = instructions
-        self.visited_count = defaultdict(lambda: 0)
+        self.reset()
+
+    def reset(self):
         self.pc = 0
         self.acc = 0
-        self.exit = False
+        self.infinite_loop = False
+        self.visited_count = defaultdict(lambda: 0)
 
     def run(self):
-        while self.pc < len(self.instructions) and not self.exit:
+        while self.pc < len(self.instructions) and not self.infinite_loop:
             self.execute_instruction()
 
     def execute_instruction(self):
         if self.visited_count[self.pc] > 0:
-            print("Status before repeated instruction:")
-            print(f"acc: {self.acc} pc: {self.pc}")
-            self.exit = True
+            self.infinite_loop = True
+            return
 
         self.visited_count[self.pc] += 1
         acc, pc = self.instructions[self.pc].execute()
@@ -31,22 +33,26 @@ class GameConsole:
     def from_code(cls, code: Iterator[str]) -> "GameConsole":
         instructions = []
 
+        dispatch_table = {
+            "acc": AccInstruction,
+            "jmp": JmpInstruction,
+            "nop": NopInstruction,
+        }
+
         for line in code:
             [name, value] = line.split(" ")
 
             value = int(value)
 
-            if name == "acc":
-                instructions.append(AccInstruction(value))
-            elif name == "jmp":
-                instructions.append(JmpInstruction(value))
-            elif name == "nop":
-                instructions.append(NopInstruction())
+            instructions.append(dispatch_table[name](value))
 
         return GameConsole(instructions)
 
 
 class Instruction(ABC):
+    def __init__(self, value):
+        self.value = value
+
     @abstractmethod
     def execute(self):
         pass
@@ -58,16 +64,10 @@ class NopInstruction(Instruction):
 
 
 class JmpInstruction(Instruction):
-    def __init__(self, offset):
-        self.offset = offset
-
     def execute(self):
-        return 0, self.offset
+        return 0, self.value
 
 
 class AccInstruction(Instruction):
-    def __init__(self, value):
-        self.value = value
-
     def execute(self):
         return self.value, 0
