@@ -21,25 +21,24 @@ L.LLLLL.LL"""
 
 def main():
     grid = get_seat_grid()
-    if DEBUG:
-        display_grid(grid)
 
-    prev_occupied_seats = None
     num_rounds = 0
+    prev_seats = 0
 
     while True:
-        num_rounds += 1
         grid = simulate_round(grid)
         if DEBUG:
             display_grid(grid)
-        curr_occupied_seats = get_occupied_seats(grid)
 
-        if prev_occupied_seats == curr_occupied_seats:
+        num_rounds += 1
+        curr_seats = get_occupied_seats(grid)
+
+        if prev_seats == curr_seats:
             break
 
-        prev_occupied_seats = curr_occupied_seats
+        prev_seats = curr_seats
 
-    print(curr_occupied_seats)
+    print(prev_seats)
 
 
 def get_seat_grid():
@@ -64,8 +63,6 @@ def simulate_round(grid):
                 new_grid[y][x] = "#"
             elif grid[y][x] == "#" and num_occupied >= 4:
                 new_grid[y][x] = "L"
-            elif grid[y][x] == ".":
-                new_grid[y][x] = "."
 
     return new_grid
 
