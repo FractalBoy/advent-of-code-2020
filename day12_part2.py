@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
 from aoc_input import read_input
-from ship import SimpleShip
+from ship import ComplexShip
 
 
 def main():
-    ship = SimpleShip()
+    ship = ComplexShip()
 
     for instruction in read_input(2020, 12):
         direction, units = instruction[0], int(instruction[1:])

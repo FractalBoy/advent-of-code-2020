@@ -1,9 +1,9 @@
-from math import cos, sin, radians
+from math import atan, cos, degrees, radians, sin, sqrt
 
 
 class UnitVector:
     def __init__(self):
-        self.origin = (0, 0)
+        self.origin = 0, 0
         self.theta = 0
 
     def rotate(self, angle):
@@ -30,7 +30,36 @@ class UnitVector:
         return f"Origin: {self.origin} Angle: {self.theta}"
 
 
-class Ship(UnitVector):
+class Vector:
+    def __init__(self):
+        self.origin = 0, 0
+        self.waypoint = 10, 1
+
+    def translate(self, *args):
+        if len(args) == 1:
+            units = args[0]
+            curr_x, curr_y = self.origin
+            waypoint_x, waypoint_y = self.waypoint
+            self.origin = (curr_x + units * waypoint_x, curr_y + units * waypoint_y)
+        elif len(args) == 2:
+            [translate_x, translate_y] = args
+            waypoint_x, waypoint_y = self.waypoint
+            self.waypoint = (waypoint_x + translate_x, waypoint_y + translate_y)
+
+    def rotate(self, angle):
+        angle = radians(angle)
+        waypoint_x, waypoint_y = self.waypoint
+
+        self.waypoint = (
+            waypoint_x * round(cos(angle)) - waypoint_y * round(sin(angle)),
+            waypoint_x * round(sin(angle)) + waypoint_y * round(cos(angle)),
+        )
+
+    def __repr__(self):
+        return f"Origin: {self.origin} Waypoint: {self.waypoint}"
+
+
+class SimpleShip(UnitVector):
     def move(self, direction, units):
         dispatch_table = {
             "N": self.move_north,
@@ -64,3 +93,7 @@ class Ship(UnitVector):
 
     def move_forward(self, units):
         self.translate(units)
+
+
+class ComplexShip(Vector, SimpleShip):
+    pass
