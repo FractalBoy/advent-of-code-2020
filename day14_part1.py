@@ -12,18 +12,17 @@ def main():
     for line in read_input(2020, 14):
         [command, value] = line.split(" = ")
         if command == "mask":
-            or_mask = int(value.replace("X", '0'), 2)
-            and_mask = int(value.replace("X", '1'), 2)
+            or_mask = int(value.replace("X", "0"), 2)
+            and_mask = int(value.replace("X", "1"), 2)
             continue
         else:
-            match = re.search(r'mem\[(\d+)\]', command)
+            match = re.search(r"mem\[(\d+)\]", command)
             if match:
                 loc = int(match.group(1))
 
             mem[loc] = int(value) & and_mask | or_mask
 
     print(sum(mem.values()))
-            
 
 
 if __name__ == "__main__":

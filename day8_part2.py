@@ -29,5 +29,6 @@ def main():
 
     print(game_console.acc)
 
+
 if __name__ == "__main__":
     main()
