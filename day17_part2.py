@@ -5,7 +5,7 @@ from cube import Cube
 
 
 def main():
-    cube = Cube(read_full_text(2020, 17), 3)
+    cube = Cube(read_full_text(2020, 17), 4)
 
     for _ in range(6):
         cube.simulate_cycle()
